@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+  background-color: #fbeaee;
+  background-image: var(--fleur-pattern);
+  background-size: 100px 120px;
+}
+
+:root {
+  /* Motif de fond : l'emblème classique de la fleur de lys, à plat (choisi par l'utilisatrice). */
+  --fleur-pattern: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='100'%20height='120'%20viewBox='0%200%20100%20120'%3E%3Cg%20transform='translate(10%2012)%20scale(0.4)'%20fill='%23E58FA8'%20fill-opacity='0.16'%3E%3Cpath%20d='M100%208%20C60%2060%2C48%20105%2C62%20138%20C68%20152%2C62%20158%2C58%20165%20C54%20174%2C62%20182%2C78%20178%20C88%20175%2C96%20172%2C100%20172%20C104%20172%2C112%20175%2C122%20178%20C138%20182%2C146%20174%2C142%20165%20C138%20158%2C132%20152%2C138%20138%20C152%20105%2C140%2060%2C100%208%20Z'/%3E%3Cpath%20d='M90%20118%20C52%2092%2C12%2096%2C4%20133%20C-4%20164%2C20%20188%2C53%20181%20C70%20177%2C80%20165%2C79%20152%20C63%20165%2C40%20163%2C32%20145%20C26%20127%2C43%20113%2C69%20118%20C78%20120%2C85%20124%2C90%20130%20Z'/%3E%3Cpath%20d='M110%20118%20C148%2092%2C188%2096%2C196%20133%20C204%20164%2C180%20188%2C147%20181%20C130%20177%2C120%20165%2C121%20152%20C137%20165%2C160%20163%2C168%20145%20C174%20127%2C157%20113%2C131%20118%20C122%20120%2C115%20124%2C110%20130%20Z'/%3E%3Cpath%20d='M70%20168%20C70%20159%2C130%20159%2C130%20168%20L130%20183%20C130%20192%2C70%20192%2C70%20183%20Z'/%3E%3Cpath%20d='M70%20185%20C57%20181%2C43%20185%2C41%20198%20C39%20210%2C52%20219%2C65%20212%20C56%20210%2C50%20201%2C54%20193%20C57%20187%2C64%20185%2C70%20187%20Z'/%3E%3Cpath%20d='M130%20185%20C143%20181%2C157%20185%2C159%20198%20C161%20210%2C148%20219%2C135%20212%20C144%20210%2C150%20201%2C146%20193%20C143%20187%2C136%20185%2C130%20187%20Z'/%3E%3Cpath%20d='M82%20188%20C84%20204%2C91%20218%2C100%20230%20C109%20218%2C116%20204%2C118%20188%20C109%20195%2C91%20195%2C82%20188%20Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+}
+
+@layer components {
+  /* Élément signature : carte "billet de voyage" avec encoches arrondies façon
+     ticket détachable, et une bordure pointillée qui évoque une carte postale. */
+  .ticket-card {
+    @apply relative bg-card dark:bg-dusk-card rounded-ticket shadow-card;
+    background-image:
+      radial-gradient(circle at 0 50%, transparent 9px, var(--ticket-bg, #f6f1e4) 9.5px),
+      radial-gradient(circle at 100% 50%, transparent 9px, var(--ticket-bg, #f6f1e4) 9.5px);
+  }
+
+  .dark .ticket-card {
+    --ticket-bg: #14202e;
+  }
+
+  .ticket-divider::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    top: 50%;
+    border-top: 2px dashed rgba(27, 42, 65, 0.14);
+    pointer-events: none;
+  }
+
+  .dark .ticket-divider::after {
+    border-top-color: rgba(243, 238, 224, 0.14);
+  }
+
+  .stamp {
+    @apply inline-flex items-center justify-center rounded-full border-2 border-dashed;
+  }
+
+  .safe-top {
+    padding-top: max(env(safe-area-inset-top), 0.75rem);
+  }
+
+  .safe-bottom {
+    padding-bottom: max(env(safe-area-inset-bottom), 0.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
